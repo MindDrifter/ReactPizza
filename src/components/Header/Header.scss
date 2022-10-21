@@ -1,0 +1,60 @@
+.Header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+
+    .PizzaTypes{
+
+        list-style: none;
+        display: flex;
+        align-items: center;
+
+        li{
+            transition: .3s;
+            margin: 0 10px;
+        }
+
+        li:hover{ 
+            cursor: pointer;
+            color: aqua;
+            transition: .3s
+        };
+    }
+
+    .dropDown{
+        position: relative;
+        display: inline-block;
+
+        .sortType {
+            text-decoration:underline;
+            color: red;
+            cursor: pointer;
+        }
+
+        span{
+            margin-left: 5px;
+            position: absolute;
+        }
+        .sortTypes{
+            display: block;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 0 16px;
+            margin-top: 20px;
+            z-index: 1;
+            li{
+                list-style: none;
+            }
+        }
+    }
+
+    // .dropDown:hover .sortTypes  {
+    //     display: block;
+    //   }
+
+     
+   
+}

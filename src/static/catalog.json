@@ -1,0 +1,36 @@
+[
+  {
+    "id":0,
+    "title":"Пепперони",
+    "imageUrl":"pepperoni.png",
+    "size": ["30", "40"],
+    "dough": ["Классическое", "Тонкое "],
+    "tags": []
+  },
+  {
+    "id":0,
+    "title":"Пепперони",
+    "imageUrl":"pepperoni.png",
+    "size": ["30", "40"],
+    "dough": ["1", "2 "],
+    "tags": []
+  },
+  {
+    "id":0,
+    "title":"Пепперони",
+    "imageUrl":"pepperoni.png",
+    "size": ["30", "40"],
+    "dough": ["1", "2 "],
+    "tags": []
+  },
+  {
+    "id":0,
+    "title":"Пепперони",
+    "imageUrl":"pepperoni.png",
+    "size": ["30", "40", "60"],
+    "dough": ["1", "2 "],
+    "tags": []
+  }
+]
+
+
