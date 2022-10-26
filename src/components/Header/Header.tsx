@@ -1,16 +1,43 @@
 import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
 import './Header.scss'
 
+import {useSelector} from 'react-redux'
+import { RootState } from '../../redux/store';
+
+import {useDispatch} from 'react-redux'
+
+import {selectTag} from '../../redux/slices/sortTagSlice'
+import { Ttags } from '../../interfaces';
+
 function Header() {
 
+  const dispatch = useDispatch()
+  const selectedSortTypeTest = useSelector((state:RootState)=> state.sortTag)
+
+  // #DOTO
   const sortType:string[] = ['Цене', 'Названию', 'Популярности']
+  const pizzaTypes:Array<[string, Ttags]> = [
+    ['Все', {tag:'all'}],
+    ['Мясная', {tag:'meat'}],
+    ['Сырная',{tag:'cheese'}],
+    ['Острая', {tag:'hot'}]
+  ]
+  // console.log(pizzaTypes);
+  
   const [sortTypesOpened, setSortTypesOpend] = useState(false)
   const [selectedSortType, setSelectedSortType] = useState(0)
   const sortTypesRef = useRef<HTMLUListElement>(null)
+
   
+  const sdf = (e:Ttags)=>{
+    dispatch(selectTag({tag:e.tag}))
+     console.log(selectedSortTypeTest);
+  }
+
   const selectSortType = (i:number) =>{
     setSelectedSortType(i)
     setSortTypesOpend(false)
+    
   }
 
   // #TODO тип е
@@ -39,11 +66,13 @@ function Header() {
     <header className='Header'>
       <div className="logo">Лого</div>
       <ul className='PizzaTypes'>
-        <li>Все</li>
-        <li>Мясная</li>
-        <li>Гриль</li>
-        <li>Веганская</li>
-        <li>Острая</li>
+      {
+        pizzaTypes.map(el=>{
+          // console.log(el);
+          return <li onClick={()=>{sdf({tag:el[1].tag})}}>{el[0]}</li>
+          
+        })
+      }
       </ul>
 
       <div className="dropDown" >
