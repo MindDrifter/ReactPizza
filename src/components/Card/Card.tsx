@@ -11,8 +11,8 @@ function Card ({id, title, imageUrl, size, dough}:IPizzaData) {
   //   dough: '123'
   // }
 
-  const pizzaData: IPizzaData[] = []
-  console.log(id, title, imageUrl);
+  // const pizzaData: IPizzaData[] = []
+  // console.log(id, title, imageUrl);
 
   //const pathToImg = "../src/static/img/"+props.imageUrl;
   

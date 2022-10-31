@@ -4,6 +4,7 @@ export interface IOptionData {
     dough: string[];
 }
 
+
 export interface Ttags{
     tag:'all'|'meat' | 'hot' | 'cheese'
 }
@@ -15,11 +16,20 @@ export interface IPizzaData extends IOptionData{
     title: string;
     imageUrl: string;
     tags?: Array <'all'|'meat' | 'hot' | 'cheese'>;
+    loading?:boolean
+}
+
+export interface ICatalogProps{
+    data:IPizzaData[]
 }
 
 export interface IOptionSelectorProps{
     optionData: IOptionData;
     onChecked: (title:string)=>void;
+}
+
+export interface IHeaderProps{
+    onPizzaTypeSelected: (title:'all'|'meat' | 'hot' | 'cheese')=>void;
 }
 
 

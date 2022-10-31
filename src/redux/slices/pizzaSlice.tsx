@@ -1,61 +1,59 @@
-import {createSlice, PayloadAction } from '@reduxjs/toolkit'
+import {createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 import { IPizzaData, Ttags } from '../../interfaces'
 
-const initialState:IPizzaData[] = [
-    {
-        id:0,
-        title:"Пепперони",
-        imageUrl:"pepperoni.png",
-        size: ["30", "40", "50"],
-        dough: ["Классическое", "Тонкое "],
-        tags:['meat']
-    },
-    {
-        id:0,
-        title:"Сырная",
-        imageUrl:"cheese.png",
-        size: ["30", "40", "50"],
-        dough: ["Классическое", "Тонкое "],
-        tags:['cheese']
-        
-      },
-      {
-        id:0,
-        title:"Четрые сыра",
-        imageUrl:"4cheese.png",
-        size: ["30", "40", "50"],
-        dough: ["Классическое", "Тонкое "],
-        tags: ['cheese']
-      
-      },
-      {
-        id:0,
-        title:"Диабло",
-        imageUrl:"diablo.png",
-        size: ["30", "40", "50"],
-        dough: ["Классическое", "Тонкое "],
-        tags: ['hot']
-       
-      },
-      {
-        id:0,
-        title:"Ветчина и сыр",
-        imageUrl:"ham.png",
-        size: ["30", "40", "50"],
-        dough: ["Классическое", "Тонкое "],
-        tags:["meat"]
-        
-      },
+interface pizzaSlice  {
+  loading:boolean,
+  data:IPizzaData[]
+}
 
-    ]
+const initialState:pizzaSlice = {
+  loading:true,
+  data:[{
+    id:0,
+    title:"",
+    imageUrl:"pepperoni.png",
+    size: [""],
+    dough: [""],
+    tags:['all'],
+    
+}]
+}
+
+  
+    
+
+
+export const fetchPiazzas = createAsyncThunk("pizzas/getPizzas", ()=>{
+  return axios
+  .get('https://635ba17faa7c3f113dc1ed90.mockapi.io/api/Pizzas')
+  .then((res) => res.data)
+  
+})
     
 const pizzaSlice = createSlice ({
     name: 'pizza',
     initialState: initialState,
+    extraReducers(builder) {
+      builder.addCase(fetchPiazzas.pending, (state)=>{
+        state.loading = true
+      })
+      builder.addCase(fetchPiazzas.fulfilled, (state, action)=>{
+        state.loading = false
+        state.data = action.payload
+      })
+      builder.addCase(fetchPiazzas.rejected, (state, action)=>{
+
+      })
+    },
     reducers: {
-        test: (state:IPizzaData[], action:PayloadAction<IPizzaData>)=>{
-            state.push(action.payload)
+        filterPizzas: (state:pizzaSlice, action:PayloadAction<any>)=>{
+            state.data.filter ((el)=>{
+              if( el.tags?.includes(action.payload) ){
+                return el
+              }
+            })
             
         }
     }
@@ -63,5 +61,5 @@ const pizzaSlice = createSlice ({
 
 export default pizzaSlice.reducer
 
-export const {test} = pizzaSlice.actions
+export const {filterPizzas} = pizzaSlice.actions
 

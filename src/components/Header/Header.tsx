@@ -7,9 +7,9 @@ import { RootState } from '../../redux/store';
 import {useDispatch} from 'react-redux'
 
 import {selectTag} from '../../redux/slices/sortTagSlice'
-import { Ttags } from '../../interfaces';
+import { Ttags, IHeaderProps} from '../../interfaces';
 
-function Header() {
+function Header({onPizzaTypeSelected}:IHeaderProps) {
 
   const dispatch = useDispatch()
   const selectedSortTypeTest = useSelector((state:RootState)=> state.sortTag)
@@ -61,6 +61,10 @@ function Header() {
     }
    
   }
+
+ 
+    
+
     
   return(
     <header className='Header'>
@@ -69,7 +73,7 @@ function Header() {
       {
         pizzaTypes.map(el=>{
           // console.log(el);
-          return <li onClick={()=>{sdf({tag:el[1].tag})}}>{el[0]}</li>
+          return <li onClick={()=>{onPizzaTypeSelected (el[1].tag) }}>{el[0]}</li>
           
         })
       }

@@ -2,20 +2,23 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import Card from '../Card/Card';
 //import CatalogData from '../../static/catalog.json'
 import './Catalog.scss'
-import { IPizzaData, Ttags } from '../../interfaces';
+import { IPizzaData, Ttags, ICatalogProps } from '../../interfaces';
 import useOptionData from '../Hooks/useOptionData';
 
 import {useSelector} from 'react-redux'
+
 import { RootState } from '../../redux/store';
+import { fetchPiazzas } from '../../redux/slices/pizzaSlice';
 
 
-import { test } from '../../redux/slices/pizzaSlice';
+//import { test } from '../../redux/slices/pizzaSlice';
 
 
 // #TODO
-function Catalog() {
+function Catalog({data}:ICatalogProps) {
   
-  const pizzaData = useSelector ((state:RootState)=> state.pizza)
+  //console.log(data);
+  //const pizzaData = useSelector ((state:RootState)=> state.pizza)
   const selectedPizzaType = useSelector((state:RootState)=> state.sortTag)
   const [tagForSort, setTagForSort] = useState<Ttags>({tag:'all'})
  
@@ -26,6 +29,11 @@ function Catalog() {
   //   tag:
   // }
 
+  useEffect(()=>{
+ 
+    
+  },[data])
+
   //const pizzaData: IPizzaData[] = []
   //console.log(selectedPizzaType.tag, 'asdasdasdasd');
   //selectedPizzaType.tag as string === 'all'? console.log('test'):console.log('fail')
@@ -34,16 +42,8 @@ function Catalog() {
       <h1>Пицца</h1>
       <div className="container__pizzas">
         {
-          selectedPizzaType.tag === 'all'?
-          pizzaData.map(({id, title, imageUrl, size, dough, tags}:IPizzaData)=>{
-            return <Card size={size} dough={dough} key={id} id={id} title={title} imageUrl={imageUrl}></Card>
-          })
-          :
-          pizzaData.filter((el)=>{
-            return el.tags?.includes(selectedPizzaType.tag)? el 
-            : ''
-          })
-          .map(({id, title, imageUrl, size, dough, tags}:IPizzaData)=>{
+          
+          data.map(({id, title, imageUrl, size, dough, tags}:IPizzaData)=>{
               return <Card size={size} dough={dough} key={id} id={id} title={title} imageUrl={imageUrl}></Card>
           })
           
