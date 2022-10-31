@@ -1,18 +1,10 @@
-import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Header.scss'
 
-import {useSelector} from 'react-redux'
-import { RootState } from '../../redux/store';
-
-import {useDispatch} from 'react-redux'
-
-import {selectTag} from '../../redux/slices/sortTagSlice'
 import { Ttags, IHeaderProps} from '../../interfaces';
 
 function Header({onPizzaTypeSelected}:IHeaderProps) {
 
-  const dispatch = useDispatch()
-  const selectedSortTypeTest = useSelector((state:RootState)=> state.sortTag)
 
   // #DOTO
   const sortType:string[] = ['Цене', 'Названию', 'Популярности']
@@ -22,17 +14,10 @@ function Header({onPizzaTypeSelected}:IHeaderProps) {
     ['Сырная',{tag:'cheese'}],
     ['Острая', {tag:'hot'}]
   ]
-  // console.log(pizzaTypes);
   
   const [sortTypesOpened, setSortTypesOpend] = useState(false)
   const [selectedSortType, setSelectedSortType] = useState(0)
   const sortTypesRef = useRef<HTMLUListElement>(null)
-
-  
-  const sdf = (e:Ttags)=>{
-    dispatch(selectTag({tag:e.tag}))
-     console.log(selectedSortTypeTest);
-  }
 
   const selectSortType = (i:number) =>{
     setSelectedSortType(i)
@@ -72,16 +57,13 @@ function Header({onPizzaTypeSelected}:IHeaderProps) {
       <ul className='PizzaTypes'>
       {
         pizzaTypes.map(el=>{
-          // console.log(el);
           return <li onClick={()=>{onPizzaTypeSelected (el[1].tag) }}>{el[0]}</li>
-          
         })
       }
       </ul>
 
       <div className="dropDown" >
-      Сортировать по <span className='sortType' onClick={ ()=> {openSortTypes()}}>{sortType[selectedSortType]}</span> 
-      
+      Сортировать по <span className='sortType' onClick={ ()=> openSortTypes()}>{sortType[selectedSortType]}</span> 
         <ul ref ={ sortTypesRef } className= {'sortTypes'}> 
         {sortTypesOpened &&
           sortType.map((el, i)=>{

@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { IPizzaData, Ttags } from '../../interfaces'
+import { IPizzaData } from '../../interfaces'
 
 interface pizzaSlice  {
   loading:boolean,

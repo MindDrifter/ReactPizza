@@ -6,16 +6,6 @@ import OptionSelector from '../ui/OptionSelector/OptionSelector';
 function Card ({id, title, imageUrl, size, dough}:IPizzaData) {
 
   const img = require('../../static/img/'+imageUrl)
-  // const optionData:IOptionData = {
-  //   length: '123',
-  //   dough: '123'
-  // }
-
-  // const pizzaData: IPizzaData[] = []
-  // console.log(id, title, imageUrl);
-
-  //const pathToImg = "../src/static/img/"+props.imageUrl;
-  
 
   return(
     <div className='Card'>

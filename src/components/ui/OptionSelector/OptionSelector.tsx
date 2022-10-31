@@ -36,7 +36,6 @@ function OptionSelector ({optionData, onChecked}:IOptionSelectorProps) {
           </ul>
 
           <ul className='options'>
-
             {
               optionData.dough.map((el, i)=>{
                 return(

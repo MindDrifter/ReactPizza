@@ -4,12 +4,10 @@ export interface IOptionData {
     dough: string[];
 }
 
-
+//TODO
 export interface Ttags{
     tag:'all'|'meat' | 'hot' | 'cheese'
 }
-
-// export type Ttags = 'all'|'meat' | 'hot' | 'cheese';
 
 export interface IPizzaData extends IOptionData{
     id: number;
