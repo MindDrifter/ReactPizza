@@ -4,17 +4,16 @@ export interface IOptionData {
     dough: string[];
 }
 
-//TODO
-export interface Ttags{
-    tag:'all'|'meat' | 'hot' | 'cheese'
-}
+//Tags for pizza types. (only for requests)
+export type Ttags = 'all'|'meat' | 'hot' | 'cheese'
 
+//All data of 1 pizza
 export interface IPizzaData extends IOptionData{
     id: number;
     title: string;
     imageUrl: string;
     tags?: Array <'all'|'meat' | 'hot' | 'cheese'>;
-    loading?:boolean
+
 }
 
 export interface ICatalogProps{

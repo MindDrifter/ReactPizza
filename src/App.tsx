@@ -9,7 +9,7 @@ import { RootState } from './redux/store';
 
 
 import './App.scss';
-import { fetchPiazzas } from './redux/slices/pizzaSlice';
+import { fetchPiazzas, fetchPiazzasByCategory } from './redux/slices/pizzaSlice';
 
 
 function App() {
@@ -25,9 +25,9 @@ function App() {
   return (
       <div className="App">
         <Header 
-        onPizzaTypeSelected={(tag)=>{setSortType(tag)}}
-        ></Header>
-        <Catalog data={pizzaData.data}  ></Catalog>
+        onPizzaTypeSelected={(tag)=>{dispatch(fetchPiazzasByCategory(tag))}}
+        />
+        <Catalog data={pizzaData.data}/>
       </div>
   );
 }

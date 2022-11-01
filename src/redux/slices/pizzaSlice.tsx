@@ -1,7 +1,10 @@
 import {createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { url } from 'inspector'
 
-import { IPizzaData } from '../../interfaces'
+import { IPizzaData} from '../../interfaces'
+
+const fetchUrl:string ='https://635ba17faa7c3f113dc1ed90.mockapi.io/api/Pizzas'
 
 interface pizzaSlice  {
   loading:boolean,
@@ -21,15 +24,17 @@ const initialState:pizzaSlice = {
 }]
 }
 
-  
-    
-
-
 export const fetchPiazzas = createAsyncThunk("pizzas/getPizzas", ()=>{
   return axios
-  .get('https://635ba17faa7c3f113dc1ed90.mockapi.io/api/Pizzas')
+  .get(fetchUrl)
   .then((res) => res.data)
-  
+})
+
+export const fetchPiazzasByCategory = createAsyncThunk("pizzas/getPizzasByTag",
+  async (tag:string)=>{
+  const res = await axios
+    .get(tag ==='all'? fetchUrl:fetchUrl+'/?tags='+tag)
+  return res.data
 })
     
 const pizzaSlice = createSlice ({
@@ -44,22 +49,31 @@ const pizzaSlice = createSlice ({
         state.data = action.payload
       })
       builder.addCase(fetchPiazzas.rejected, (state, action)=>{
+      })
+      builder.addCase(fetchPiazzasByCategory.pending, state =>{
+        state.loading = true
+      })
+      builder.addCase(fetchPiazzasByCategory.fulfilled, (state, action) =>{
+        state.loading = false
+        state.data = action.payload
+      })
+      builder.addCase(fetchPiazzasByCategory.rejected, (state, action) =>{
 
       })
     },
     reducers: {
-        filterPizzas: (state:pizzaSlice, action:PayloadAction<any>)=>{
-            state.data.filter ((el)=>{
-              if( el.tags?.includes(action.payload) ){
-                return el
-              }
-            })
+        // filterPizzas: (state:pizzaSlice, action:PayloadAction<any>)=>{
+        //     state.data.filter ((el)=>{
+        //       if( el.tags?.includes(action.payload) ){
+        //         return el
+        //       }
+        //     })
             
-        }
+        // }
     }
 })
 
 export default pizzaSlice.reducer
 
-export const {filterPizzas} = pizzaSlice.actions
+//  export const {} = pizzaSlice.actions
 

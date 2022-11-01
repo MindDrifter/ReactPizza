@@ -12,9 +12,14 @@ function Catalog({data}:ICatalogProps) {
       <div className="container__pizzas">
         {
           data.map(({id, title, imageUrl, size, dough, tags}:IPizzaData)=>{
-              return <Card size={size} dough={dough} key={id} id={id} title={title} imageUrl={imageUrl}></Card>
-          })
-          
+              return <Card 
+              size={size} 
+              dough={dough} 
+              key={id} 
+              id={id} 
+              title={title} 
+              imageUrl={imageUrl}/>
+          }) 
         }
       </div>
     </div >

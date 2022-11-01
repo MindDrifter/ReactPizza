@@ -9,10 +9,10 @@ function Header({onPizzaTypeSelected}:IHeaderProps) {
   // #DOTO
   const sortType:string[] = ['Цене', 'Названию', 'Популярности']
   const pizzaTypes:Array<[string, Ttags]> = [
-    ['Все', {tag:'all'}],
-    ['Мясная', {tag:'meat'}],
-    ['Сырная',{tag:'cheese'}],
-    ['Острая', {tag:'hot'}]
+    ['Все', 'all'],
+    ['Мясная', 'meat'],
+    ['Сырная','cheese'],
+    ['Острая', 'hot']
   ]
   
   const [sortTypesOpened, setSortTypesOpend] = useState(false)
@@ -47,17 +47,14 @@ function Header({onPizzaTypeSelected}:IHeaderProps) {
    
   }
 
- 
-    
 
-    
   return(
     <header className='Header'>
       <div className="logo">Лого</div>
       <ul className='PizzaTypes'>
       {
         pizzaTypes.map(el=>{
-          return <li onClick={()=>{onPizzaTypeSelected (el[1].tag) }}>{el[0]}</li>
+          return <li onClick={()=>{onPizzaTypeSelected (el[1])}}>{el[0]}</li>
         })
       }
       </ul>
