@@ -21,13 +21,12 @@ function App() {
   },[])
   
   const pizzaData = useSelector ((state:RootState)=> state.pizza)
-
   return (
       <div className="App">
         <Header 
         onPizzaTypeSelected={(tag)=>{dispatch(fetchPiazzasByCategory(tag))}}
         />
-        <Catalog data={pizzaData.data}/>
+        <Catalog data={pizzaData.data} loading={pizzaData.loading}/>
       </div>
   );
 }

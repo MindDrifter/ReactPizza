@@ -1,13 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Header.scss'
 
-import { Ttags, IHeaderProps} from '../../interfaces';
+import { Ttags, IHeaderProps, TSort} from '../../interfaces';
+
+import {useDispatch} from 'react-redux'
+import { sortPizzas } from '../../redux/slices/pizzaSlice';
+
 
 function Header({onPizzaTypeSelected}:IHeaderProps) {
 
-
+  const dispatch = useDispatch()
+  
   // #DOTO
-  const sortType:string[] = ['Цене', 'Названию', 'Популярности']
+  const sortType:Array<[string, TSort]>  = [
+    ['Цене', 'price'],
+    ['Названию','abc'], 
+    ['Популярности', 'popular'],
+  ]
   const pizzaTypes:Array<[string, Ttags]> = [
     ['Все', 'all'],
     ['Мясная', 'meat'],
@@ -22,6 +31,7 @@ function Header({onPizzaTypeSelected}:IHeaderProps) {
   const selectSortType = (i:number) =>{
     setSelectedSortType(i)
     setSortTypesOpend(false)
+    dispatch(sortPizzas('abc'))
     
   }
 
@@ -54,17 +64,17 @@ function Header({onPizzaTypeSelected}:IHeaderProps) {
       <ul className='PizzaTypes'>
       {
         pizzaTypes.map(el=>{
-          return <li onClick={()=>{onPizzaTypeSelected (el[1])}}>{el[0]}</li>
+          return <li key={el[0]} onClick={()=>{onPizzaTypeSelected (el[1])}}>{el[0]}</li>
         })
       }
       </ul>
 
       <div className="dropDown" >
-      Сортировать по <span className='sortType' onClick={ ()=> openSortTypes()}>{sortType[selectedSortType]}</span> 
+      Сортировать по <span className='sortType' onClick={ ()=> openSortTypes()}>{sortType[selectedSortType][0]}</span> 
         <ul ref ={ sortTypesRef } className= {'sortTypes'}> 
         {sortTypesOpened &&
           sortType.map((el, i)=>{
-            return <li key={el} className='sortType'  onClick= { ()=>{selectSortType(i)} }>{el}</li>
+            return <li key={el[0]} className='sortType'  onClick= { ()=>{selectSortType(i)} }>{el[0]}</li>
           })
         }
         </ul>

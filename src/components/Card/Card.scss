@@ -15,6 +15,30 @@
         width: 260px;
         transition: .5s transform;
     }
+    .img {
+        background-color: gray;
+        display: block;
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+    }
+    .title{
+        border-radius: 5px  ;
+        margin-top: 8px;
+        margin-bottom: 4px;
+        width: 100px;
+        height: 20px;
+        background-color: gray;
+        display: block;
+    }
+
+    .option_selector {
+        border-radius: 5px;
+        display: block;
+        width: 320px;
+        height: 105px;
+        background-color: gray;
+    }
   
 }
 

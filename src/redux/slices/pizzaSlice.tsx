@@ -2,7 +2,7 @@ import {createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { url } from 'inspector'
 
-import { IPizzaData} from '../../interfaces'
+import { IPizzaData, TSort} from '../../interfaces'
 
 const fetchUrl:string ='https://635ba17faa7c3f113dc1ed90.mockapi.io/api/Pizzas'
 
@@ -22,6 +22,21 @@ const initialState:pizzaSlice = {
     tags:['all'],
     
 }]
+}
+
+const sortByTitle = (data:pizzaSlice) => {
+  data.data.sort((a,b)=>{
+    const nameA = a.title.toUpperCase(); // ignore upper and lowercase
+    const nameB = b.title.toUpperCase(); // ignore upper and lowercase
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    // names must be equal
+    return 0;
+   })
 }
 
 export const fetchPiazzas = createAsyncThunk("pizzas/getPizzas", ()=>{
@@ -62,18 +77,21 @@ const pizzaSlice = createSlice ({
       })
     },
     reducers: {
-        // filterPizzas: (state:pizzaSlice, action:PayloadAction<any>)=>{
-        //     state.data.filter ((el)=>{
-        //       if( el.tags?.includes(action.payload) ){
-        //         return el
-        //       }
-        //     })
-            
-        // }
+      // #TODO Не сохраняется при переключении категории
+        sortPizzas: (state:pizzaSlice, action:PayloadAction<TSort>)=>{
+          switch (action.payload){
+            case 'abc':
+              sortByTitle(state)
+               break;
+            case 'price':
+              state.data.sort((a, b) => a.id - b.id);
+            break;
+          }
+        }
     }
 })
 
 export default pizzaSlice.reducer
 
-//  export const {} = pizzaSlice.actions
+export const {sortPizzas} = pizzaSlice.actions
 
