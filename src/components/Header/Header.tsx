@@ -3,18 +3,16 @@ import './Header.scss'
 
 import { Ttags, IHeaderProps, TSort} from '../../interfaces';
 
-import {useDispatch} from 'react-redux'
-import { sortPizzas } from '../../redux/slices/pizzaSlice';
+// import { sortPizzas } from '../../redux/slices/pizzaSlice';
 
 
 function Header({onPizzaTypeSelected}:IHeaderProps) {
 
-  const dispatch = useDispatch()
   
-  // #DOTO
+  // #DOTO Сделать объектом 
   const sortType:Array<[string, TSort]>  = [
     ['Цене', 'price'],
-    ['Названию','abc'], 
+    ['Названию','title'], 
     ['Популярности', 'popular'],
   ]
   const pizzaTypes:Array<[string, Ttags]> = [
@@ -25,14 +23,24 @@ function Header({onPizzaTypeSelected}:IHeaderProps) {
   ]
   
   const [sortTypesOpened, setSortTypesOpend] = useState(false)
-  const [selectedSortType, setSelectedSortType] = useState(0)
+  const [selectedSortType, setSelectedSortType] = useState(1)
+  const [selectedPizzaType, setSelectedPizzaType] = useState(0)
   const sortTypesRef = useRef<HTMLUListElement>(null)
+
 
   const selectSortType = (i:number) =>{
     setSelectedSortType(i)
     setSortTypesOpend(false)
-    dispatch(sortPizzas('abc'))
-    
+    onPizzaTypeSelected(pizzaTypes[selectedPizzaType][1], sortType[i][1])
+    // onPizzaTypeSelected(pizzaTypes[selectedPizzaType][1], sortType[selectedSortType][1])
+    //dispatch(sortPizzas('abc'))
+  }
+
+  const selectPizzaType = (i:number) =>{
+    setSelectedPizzaType(i)
+    onPizzaTypeSelected(pizzaTypes[i][1], sortType[selectedSortType][1])
+    // onPizzaTypeSelected(pizzaTypes[i][1], sortType[selectedSortType][1])
+    //dispatch(sortPizzas('abc'))
   }
 
   // #TODO тип е
@@ -42,7 +50,9 @@ function Header({onPizzaTypeSelected}:IHeaderProps) {
     }
   }
 
+
   useEffect(()=>{
+
     document.addEventListener('mousedown', checkClickOutside )
     return ()=>{ document.removeEventListener('mousedown',checkClickOutside) } ;
   }, [])
@@ -63,8 +73,8 @@ function Header({onPizzaTypeSelected}:IHeaderProps) {
       <div className="logo">Лого</div>
       <ul className='PizzaTypes'>
       {
-        pizzaTypes.map(el=>{
-          return <li key={el[0]} onClick={()=>{onPizzaTypeSelected (el[1])}}>{el[0]}</li>
+        pizzaTypes.map((el, i)=>{
+          return <li key={el[0]} onClick={()=>{selectPizzaType (i)}}>{el[0]}</li>
         })
       }
       </ul>

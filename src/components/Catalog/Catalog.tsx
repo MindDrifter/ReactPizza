@@ -29,7 +29,9 @@ function Catalog({data, loading}:ICatalogProps) {
               imageUrl={imageUrl}/>
           })
           :
-          <CardSkeleton></CardSkeleton>
+          [1,3,4,6,7,8,9].map(()=>{
+           return <CardSkeleton></CardSkeleton>
+          })
         }
        
         

@@ -2,7 +2,7 @@ import {createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { url } from 'inspector'
 
-import { IPizzaData, TSort} from '../../interfaces'
+import { IPizzaData, TSort, Ttags} from '../../interfaces'
 
 const fetchUrl:string ='https://635ba17faa7c3f113dc1ed90.mockapi.io/api/Pizzas'
 
@@ -24,20 +24,20 @@ const initialState:pizzaSlice = {
 }]
 }
 
-const sortByTitle = (data:pizzaSlice) => {
-  data.data.sort((a,b)=>{
-    const nameA = a.title.toUpperCase(); // ignore upper and lowercase
-    const nameB = b.title.toUpperCase(); // ignore upper and lowercase
-    if (nameA < nameB) {
-      return -1;
-    }
-    if (nameA > nameB) {
-      return 1;
-    }
-    // names must be equal
-    return 0;
-   })
-}
+// const sortByTitle = (data:pizzaSlice) => {
+//   data.data.sort((a,b)=>{
+//     const nameA = a.title.toUpperCase(); // ignore upper and lowercase
+//     const nameB = b.title.toUpperCase(); // ignore upper and lowercase
+//     if (nameA < nameB) {
+//       return -1;
+//     }
+//     if (nameA > nameB) {
+//       return 1;
+//     }
+//     // names must be equal
+//     return 0;
+//    })
+// }
 
 export const fetchPiazzas = createAsyncThunk("pizzas/getPizzas", ()=>{
   return axios
@@ -45,10 +45,13 @@ export const fetchPiazzas = createAsyncThunk("pizzas/getPizzas", ()=>{
   .then((res) => res.data)
 })
 
-export const fetchPiazzasByCategory = createAsyncThunk("pizzas/getPizzasByTag",
-  async (tag:string)=>{
+export const fetchPiazzasByCriteria = createAsyncThunk("pizzas/getPizzasByCriteria",
+  async (data:any)=>{
+   console.log(data);
+   
+    
   const res = await axios
-    .get(tag ==='all'? fetchUrl:fetchUrl+'/?tags='+tag)
+    .get(data.tag ==='all'? fetchUrl+`?sortBy=${data.sortType}&order=asc`:fetchUrl+'/?tags='+data.tag+'&sortBy=title&order=asc')
   return res.data
 })
     
@@ -65,33 +68,33 @@ const pizzaSlice = createSlice ({
       })
       builder.addCase(fetchPiazzas.rejected, (state, action)=>{
       })
-      builder.addCase(fetchPiazzasByCategory.pending, state =>{
+      builder.addCase(fetchPiazzasByCriteria.pending, state =>{
         state.loading = true
       })
-      builder.addCase(fetchPiazzasByCategory.fulfilled, (state, action) =>{
+      builder.addCase(fetchPiazzasByCriteria.fulfilled, (state, action) =>{
         state.loading = false
         state.data = action.payload
       })
-      builder.addCase(fetchPiazzasByCategory.rejected, (state, action) =>{
+      builder.addCase(fetchPiazzasByCriteria.rejected, (state, action) =>{
 
       })
     },
     reducers: {
       // #TODO Не сохраняется при переключении категории
-        sortPizzas: (state:pizzaSlice, action:PayloadAction<TSort>)=>{
-          switch (action.payload){
-            case 'abc':
-              sortByTitle(state)
-               break;
-            case 'price':
-              state.data.sort((a, b) => a.id - b.id);
-            break;
-          }
-        }
+        // sortPizzas: (state:pizzaSlice, action:PayloadAction<TSort>)=>{
+        //   switch (action.payload){
+        //     case 'title':
+        //       sortByTitle(state)
+        //        break;
+        //     case 'price':
+        //       state.data.sort((a, b) => a.id - b.id);
+        //     break;
+        //   }
+        // }
     }
 })
 
 export default pizzaSlice.reducer
 
-export const {sortPizzas} = pizzaSlice.actions
+// export const {sortPizzas} = pizzaSlice.actions
 

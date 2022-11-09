@@ -7,7 +7,7 @@ export interface IOptionData {
 //Tags for pizza types. (only for requests)
 export type Ttags = 'all'|'meat' | 'hot' | 'cheese';
 
-export type TSort = 'abc'|'price' |'popular';
+export type TSort = 'title'|'price' |'popular';
 
 
 //All data of 1 pizza
@@ -30,7 +30,7 @@ export interface IOptionSelectorProps{
 }
 
 export interface IHeaderProps{
-    onPizzaTypeSelected: (title:'all'|'meat' | 'hot' | 'cheese')=>void;
+    onPizzaTypeSelected: (tag:Ttags,sortType:TSort )=>void;
 }
 
 
