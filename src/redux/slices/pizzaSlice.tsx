@@ -1,6 +1,5 @@
 import {createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { url } from 'inspector'
 
 import { IPizzaData, TSort, Ttags} from '../../interfaces'
 

@@ -26,7 +26,7 @@ export interface ICatalogProps{
 
 export interface IOptionSelectorProps{
     optionData: IOptionData;
-    onChecked: (title:string)=>void;
+    onOptionSelected: (option:any)=>void;
 }
 
 export interface IHeaderProps{

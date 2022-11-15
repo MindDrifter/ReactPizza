@@ -1,25 +1,39 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IOptionSelectorProps } from '../../../interfaces';
 import './OptionSelector.scss'
 
-function OptionSelector ({optionData, onChecked}:IOptionSelectorProps) {
+function OptionSelector ({onOptionSelected,optionData}:IOptionSelectorProps) {
 
     const [selectedSize, setSelectedSize] = useState(0)
     const [selectedDough, setSelectedDough] = useState(0)
+    const [selectedOptionData, setSelectedOptionData] = useState({
+      size:'30',
+      dough:'Классическое'
+    })
 
+    useEffect(()=>{
+      onOptionSelected(selectedOptionData)
+    },[selectedOptionData])
+    
     const selectSize = (i:number, size:string) =>{
       setSelectedSize(i)
-      onChecked (size)
+      setSelectedOptionData({
+        size,
+        dough:optionData.dough[selectedDough]
+      })
     }
 
     const selectdDough = (i:number, dough:string)=>{
       setSelectedDough(i)
-      onChecked (dough)
+      setSelectedOptionData({
+        size:optionData.size[selectedSize],
+        dough
+      })
     }
 
     return(
-        <div className='options_background'>
+        <div className='options_background' >
           <ul className='options'>
             {
               optionData.size.map((el, i)=>{

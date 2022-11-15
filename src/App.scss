@@ -2,6 +2,9 @@
   box-sizing: border-box;
   padding: 0 0;
 }
+img{
+  -webkit-user-drag: none;
+}
 
 .App {
   background-color: #282c34;
