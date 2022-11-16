@@ -19,8 +19,9 @@ function Catalog({data, loading}:ICatalogProps) {
         {
           !loading
           ?
-          data.map(({id, title, imageUrl, size, dough, tags}:IPizzaData)=>{
+          data.map(({id, title, imageUrl, size, dough, tags, price}:IPizzaData)=>{
               return <Card 
+              price={price}
               size={size} 
               dough={dough} 
               key={id} 
@@ -29,8 +30,8 @@ function Catalog({data, loading}:ICatalogProps) {
               imageUrl={imageUrl}/>
           })
           :
-          [1,3,4,6,7,8,9].map(()=>{
-           return <CardSkeleton></CardSkeleton>
+          [1,3,4,6,7,8,9].map((el)=>{
+           return <CardSkeleton key={el}></CardSkeleton>
           })
         }
        

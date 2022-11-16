@@ -19,6 +19,7 @@ const initialState:pizzaSlice = {
     size: [""],
     dough: [""],
     tags:['all'],
+    price:0
     
 }]
 }
@@ -50,7 +51,10 @@ export const fetchPiazzasByCriteria = createAsyncThunk("pizzas/getPizzasByCriter
    
     
   const res = await axios
-    .get(data.tag ==='all'? fetchUrl+`?sortBy=${data.sortType}&order=asc`:fetchUrl+'/?tags='+data.tag+'&sortBy=title&order=asc')
+    .get(
+    data.tag ==='all'
+    ?fetchUrl+`?sortBy=${data.sortType}&order=asc`
+    :fetchUrl+'/?tags='+data.tag+`&sortBy=${data.sortType}&order=asc`)
   return res.data
 })
     

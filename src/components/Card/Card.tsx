@@ -4,8 +4,9 @@ import { IPizzaData } from '../../interfaces';
 import OptionSelector from '../ui/OptionSelector/OptionSelector';
 import { useDispatch } from 'react-redux';
 import { addPizzaToCart } from '../../redux/slices/cartSlice';
+import { calcPriceWithSize } from '../../utils/calcPriceWithSize';
 
-function Card ({id, title, imageUrl, size, dough}:IPizzaData) {
+function Card ({id, title, imageUrl, size, dough, price}:IPizzaData) {
 
   const img = require('../../static/img/'+imageUrl)
   const dispatch = useDispatch<any>();
@@ -24,7 +25,8 @@ function Card ({id, title, imageUrl, size, dough}:IPizzaData) {
     dispatch(addPizzaToCart({
       selectedOptionData,
       title,
-      id
+      id,
+      price:calcPriceWithSize(selectedOptionData.size, price)
     })
     )
   }
@@ -41,6 +43,7 @@ function Card ({id, title, imageUrl, size, dough}:IPizzaData) {
         />
       </div>
       <button onClick={()=>{addItemToCart()}} >В корзину</button>
+      {calcPriceWithSize(selectedOptionData.size, price)}
     </div>
   );
 }

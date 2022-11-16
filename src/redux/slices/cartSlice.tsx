@@ -7,7 +7,8 @@ const initialState = [{
     selectedOptionData:{
         size:'',
         dought:''
-    }
+    },
+    price:''
 }
 ]
 
@@ -19,7 +20,7 @@ const cartSilce = createSlice({
         addPizzaToCart:(state, action)=>{
             state.push(action.payload)
             state.map(el=>{
-                console.log(el.selectedOptionData.size);
+                console.log(el.price);
             })
         },
         removePizzaFromCart:(state, action)=>{
