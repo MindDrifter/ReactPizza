@@ -4,6 +4,16 @@ export interface IOptionData {
     dough: string[];
 }
 
+export interface ISelectedOptionData {
+    size: string;
+    dough: string;
+}
+
+
+export interface IClick {
+    onCardClick:()=>void
+}
+
 export type TSort = 'title'|'price' |'popular';
 
 //Tags for pizza types. (only for requests)
@@ -19,17 +29,27 @@ export interface IPizzaData extends IOptionData{
     imageUrl: string;
     price:number
     tags?: Ttags[];
-
 }
 
 export interface ICatalogProps{
     data:IPizzaData[],
-    loading:boolean
+    loading:boolean,
+    onModalOpened:(id:number)=>void
+}
+
+export interface ICardProps extends IPizzaData{
+    onCardClick:()=>void
+}
+
+export interface IModalProps  {
+    opened:boolean,
+    onCloseModal:()=>void,
+    children: JSX.Element
 }
 
 export interface IOptionSelectorProps{
     optionData: IOptionData;
-    onOptionSelected: (option:any)=>void;
+    onOptionSelected: (option:ISelectedOptionData)=>void;
 }
 
 export interface IHeaderProps{

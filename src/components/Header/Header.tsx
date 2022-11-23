@@ -10,11 +10,22 @@ function Header({onPizzaTypeSelected}:IHeaderProps) {
 
   
   // #DOTO Сделать объектом 
-  const sortType:Array<[string, TSort]>  = [
-    ['Цене', 'price'],
-    ['Названию','title'], 
-    ['Популярности', 'popular'],
+
+  const sortType:{title:string, sortType:TSort}[] =[
+    {title:'Цене', sortType:"price"},
+    {title:'Названию', sortType:"title"},
+    {title:'Популярности', sortType:"popular"}
   ]
+    
+  
+    
+  
+
+  // const sortType:Array<[string, TSort]>  = [
+  //   ['Цене', 'price'],
+  //   ['Названию','title'], 
+  //   ['Популярности', 'popular'],
+  // ]
   const pizzaTypes:Array<[string, Ttags]> = [
     ['Все', 'all'],
     ['Мясная', 'meat'],
@@ -31,14 +42,14 @@ function Header({onPizzaTypeSelected}:IHeaderProps) {
   const selectSortType = (i:number) =>{
     setSelectedSortType(i)
     setSortTypesOpend(false)
-    onPizzaTypeSelected(pizzaTypes[selectedPizzaType][1], sortType[i][1])
+    onPizzaTypeSelected(pizzaTypes[selectedPizzaType][1], sortType[i].sortType)
     // onPizzaTypeSelected(pizzaTypes[selectedPizzaType][1], sortType[selectedSortType][1])
     //dispatch(sortPizzas('abc'))
   }
 
   const selectPizzaType = (i:number) =>{
     setSelectedPizzaType(i)
-    onPizzaTypeSelected(pizzaTypes[i][1], sortType[selectedSortType][1])
+    onPizzaTypeSelected(pizzaTypes[i][1], sortType[selectedSortType].sortType)
     // onPizzaTypeSelected(pizzaTypes[i][1], sortType[selectedSortType][1])
     //dispatch(sortPizzas('abc'))
   }
@@ -80,11 +91,11 @@ function Header({onPizzaTypeSelected}:IHeaderProps) {
       </ul>
 
       <div className="dropDown" >
-      Сортировать по <span className='sortType' onClick={ ()=> openSortTypes()}>{sortType[selectedSortType][0]}</span> 
+      Сортировать по <span className='sortType' onClick={ ()=> openSortTypes()}>{sortType[selectedSortType].title}</span> 
         <ul ref ={ sortTypesRef } className= {'sortTypes'}> 
         {sortTypesOpened &&
           sortType.map((el, i)=>{
-            return <li key={el[0]} className='sortType'  onClick= { ()=>{selectSortType(i)} }>{el[0]}</li>
+            return <li key={el.title} className='sortType'  onClick= { ()=>{selectSortType(i)} }>{el.title}</li>
           })
         }
         </ul>

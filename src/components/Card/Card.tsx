@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import './Card.scss';
-import { IPizzaData } from '../../interfaces';
+import { ICardProps, IClick, IPizzaData, ISelectedOptionData } from '../../interfaces';
 import OptionSelector from '../ui/OptionSelector/OptionSelector';
 import { useDispatch } from 'react-redux';
 import { addPizzaToCart } from '../../redux/slices/cartSlice';
 import { calcPriceWithSize } from '../../utils/calcPriceWithSize';
 
-function Card ({id, title, imageUrl, size, dough, price}:IPizzaData) {
+function Card ({id, title, imageUrl, size, dough, price, onCardClick}:ICardProps) {
 
   const img = require('../../static/img/'+imageUrl)
   const dispatch = useDispatch<any>();
   // #TODO Сделать соотношение ключ-значение для размера пицца, поправить данные в АПИ
-  const [selectedOptionData, setSelectedOptionData] = useState({
+  // Что?
+  const [selectedOptionData, setSelectedOptionData] = useState <ISelectedOptionData> ({
     size:'30',
     dough:'Классическое'
   })
@@ -30,14 +31,17 @@ function Card ({id, title, imageUrl, size, dough, price}:IPizzaData) {
     })
     )
   }
+  
+
+
 
   return(
     <div className='Card'>
-      <img src= {img} alt="" />
+      <img src= {img} alt=""  onClick={()=>{onCardClick()}} />
       <span>{title}</span>
       <div className="radio">
         <OptionSelector 
-        onOptionSelected={(options)=>{setSelectedOptionData(options);}}
+        onOptionSelected={(options)=>{setSelectedOptionData(options)}}
         optionData={{size, dough}}
         // onChecked = {(size)=>{console.log(size)}}
         />

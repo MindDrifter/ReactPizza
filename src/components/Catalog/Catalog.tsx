@@ -10,7 +10,7 @@ import CardSkeleton from '../Card/CardSkeleton';
 
 
 // #TODO
-function Catalog({data, loading}:ICatalogProps) {
+function Catalog({data, loading, onModalOpened}:ICatalogProps) {
 
   return (
     <div className='container'>
@@ -21,17 +21,19 @@ function Catalog({data, loading}:ICatalogProps) {
           ?
           data.map(({id, title, imageUrl, size, dough, tags, price}:IPizzaData)=>{
               return <Card 
+              onCardClick={()=>{onModalOpened(id)}}
               price={price}
               size={size} 
               dough={dough} 
               key={id} 
               id={id} 
               title={title} 
-              imageUrl={imageUrl}/>
+              imageUrl={imageUrl}
+              />
           })
           :
           [1,3,4,6,7,8,9].map((el)=>{
-           return <CardSkeleton key={el}></CardSkeleton>
+           return <CardSkeleton  key={el}></CardSkeleton>
           })
         }
        

@@ -1,5 +1,5 @@
 .Card{
-    cursor: pointer;
+   
     margin: 20px 20px;
     width: 360px;
     height: 460px;
@@ -12,8 +12,10 @@
     border-radius: 5px;
     transition:  box-shadow .5s,  transform .5s;
     img {
+        cursor: pointer;
         width: 260px;
         transition: .5s transform;
+        margin: 0 40px;
     }
     .img {
         background-color: gray;
@@ -49,11 +51,10 @@
 }
 
 .Card:hover{
-    transform: translateX(-5px);
     -webkit-box-shadow: 17px 1px 8px 0px rgba(34, 60, 80, 0.2);
     -moz-box-shadow: 17px 1px 8px 0px rgba(34, 60, 80, 0.2);
     box-shadow: 17px 1px 8px 0px rgba(34, 60, 80, 0.2);
 }
 .Card:hover img{
-    transform: scale(105%);
+     transform: scale(105%);
 }

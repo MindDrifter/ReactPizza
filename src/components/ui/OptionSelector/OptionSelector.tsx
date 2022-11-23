@@ -1,13 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
-import { IOptionSelectorProps } from '../../../interfaces';
+import { IOptionSelectorProps, ISelectedOptionData } from '../../../interfaces';
 import './OptionSelector.scss'
 
 function OptionSelector ({onOptionSelected,optionData}:IOptionSelectorProps) {
 
     const [selectedSize, setSelectedSize] = useState(0)
     const [selectedDough, setSelectedDough] = useState(0)
-    const [selectedOptionData, setSelectedOptionData] = useState({
+    const [selectedOptionData, setSelectedOptionData] = useState <ISelectedOptionData> ({
       size:'30',
       dough:'Классическое'
     })
