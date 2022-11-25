@@ -40,3 +40,37 @@ img{
     transform: rotate(360deg);
   }
 }
+
+.Modal_pizza{
+  display: flex;
+  justify-content: space-between;
+  img{
+    transition: .5s transform;
+    width: 450px;
+    &:hover{
+      transform: scale(105%);
+    }
+  }
+  .left_side{
+    display: flex;
+    flex-direction: column;
+  }
+  .right_side{
+    margin-left: 100px;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: space-between;
+    span {
+      max-width:600px;
+
+    }
+    .options_background {
+      li{
+        padding: 20px 80px;
+      }
+  
+    }
+    
+  }
+}

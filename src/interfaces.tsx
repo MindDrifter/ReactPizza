@@ -56,6 +56,13 @@ export interface IHeaderProps{
     onPizzaTypeSelected: (tag:Ttags,sortType:TSort )=>void;
 }
 
+export interface ICartButtonProps {
+    selectedOptionData:ISelectedOptionData,
+    title:string,
+    id:number,
+    price:number
+}
+
 
 //All card data
 // export interface IPizzaCardData {
