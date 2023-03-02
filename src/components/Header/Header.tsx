@@ -1,20 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './Header.scss'
-
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Ttags, IHeaderProps, TSort} from '../../interfaces';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+
+import './Header.scss'
 
 // import { sortPizzas } from '../../redux/slices/pizzaSlice';
 
 
 function Header({onPizzaTypeSelected}:IHeaderProps) {
 
-  
-  // #DOTO Сделать объектом 
-
+  const cart = useSelector((state:RootState)=> state.cart)
   const sortType:{title:string, sortType:TSort}[] =[
     {title:'Цене', sortType:"price"},
     {title:'Названию', sortType:"title"},
-    {title:'Популярности', sortType:"popular"}
+    {title:'Популярности', sortType:"popularity"}
   ]
     
   
@@ -26,11 +27,11 @@ function Header({onPizzaTypeSelected}:IHeaderProps) {
   //   ['Названию','title'], 
   //   ['Популярности', 'popular'],
   // ]
-  const pizzaTypes:Array<[string, Ttags]> = [
-    ['Все', 'all'],
-    ['Мясная', 'meat'],
-    ['Сырная','cheese'],
-    ['Острая', 'hot']
+  const pizzaTypes:{title:string, pizzaType:Ttags}[] = [
+    {title:'Все', pizzaType:'all'},
+    {title:'Мясная', pizzaType:'meat'},
+    {title:'Сырная',pizzaType:'cheese'},
+    {title:'Острая', pizzaType:'hot'}
   ]
   
   const [sortTypesOpened, setSortTypesOpend] = useState(false)
@@ -39,17 +40,21 @@ function Header({onPizzaTypeSelected}:IHeaderProps) {
   const sortTypesRef = useRef<HTMLUListElement>(null)
 
 
+  useEffect(()=>{
+    onPizzaTypeSelected(pizzaTypes[selectedPizzaType].pizzaType, sortType[selectedSortType].sortType)
+  },[])
+
   const selectSortType = (i:number) =>{
     setSelectedSortType(i)
     setSortTypesOpend(false)
-    onPizzaTypeSelected(pizzaTypes[selectedPizzaType][1], sortType[i].sortType)
+    onPizzaTypeSelected(pizzaTypes[selectedPizzaType].pizzaType, sortType[i].sortType)
     // onPizzaTypeSelected(pizzaTypes[selectedPizzaType][1], sortType[selectedSortType][1])
     //dispatch(sortPizzas('abc'))
   }
 
   const selectPizzaType = (i:number) =>{
     setSelectedPizzaType(i)
-    onPizzaTypeSelected(pizzaTypes[i][1], sortType[selectedSortType].sortType)
+    onPizzaTypeSelected(pizzaTypes[i].pizzaType, sortType[selectedSortType].sortType)
     // onPizzaTypeSelected(pizzaTypes[i][1], sortType[selectedSortType][1])
     //dispatch(sortPizzas('abc'))
   }
@@ -77,17 +82,20 @@ function Header({onPizzaTypeSelected}:IHeaderProps) {
     }
    
   }
-
+  
 
   return(
     <header className='Header'>
       <div className="logo">Лого</div>
+      
       <ul className='PizzaTypes'>
       {
         pizzaTypes.map((el, i)=>{
-          return <li key={el[0]} onClick={()=>{selectPizzaType (i)}}>{el[0]}</li>
+          return <li key={el.title} onClick={()=>{selectPizzaType (i)}}>{el.title}</li>
         })
+        
       }
+    
       </ul>
 
       <div className="dropDown" >
@@ -99,8 +107,9 @@ function Header({onPizzaTypeSelected}:IHeaderProps) {
           })
         }
         </ul>
+        
       </div>
-      
+      <Link className='navLink' to={'/cart'}>{cart.length > 0? 'В корзине '+cart.length+'шт.' :'Корзина'}</Link>
     </header>
   )
 }

@@ -14,7 +14,7 @@ export interface IClick {
     onCardClick:()=>void
 }
 
-export type TSort = 'title'|'price' |'popular';
+export type TSort = 'title'|'price' |'popularity';
 
 //Tags for pizza types. (only for requests)
 export type Ttags = 'all'|'meat' | 'hot' | 'cheese';
@@ -24,11 +24,12 @@ export type Ttags = 'all'|'meat' | 'hot' | 'cheese';
 
 //All data of 1 pizza
 export interface IPizzaData extends IOptionData{
-    id: number;
-    title: string;
-    imageUrl: string;
+    id: number,
+    title: string,
+    imageUrl: string,
     price:number
-    tags?: Ttags[];
+    tags?: Ttags[],
+    popularity: number;
 }
 
 export interface ICatalogProps{
@@ -60,7 +61,8 @@ export interface ICartButtonProps {
     selectedOptionData:ISelectedOptionData,
     title:string,
     id:number,
-    price:number
+    price:number,
+    imageUrl:string
 }
 
 

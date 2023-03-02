@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { IModalProps } from '../../../interfaces';
-import '../Modal/Modal.scss'
+import { IModalProps } from '../../interfaces';
+import './Modal.scss'
 
 
 function Modal ({opened, onCloseModal, children}:IModalProps) {

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './Card.scss';
 import { ICardProps, IClick, IPizzaData, ISelectedOptionData } from '../../interfaces';
-import OptionSelector from '../ui/OptionSelector/OptionSelector';
+import OptionSelector from '../../ui/OptionSelector/OptionSelector';
 import { useDispatch } from 'react-redux';
 import { addPizzaToCart } from '../../redux/slices/cartSlice';
 import { calcPriceWithSize } from '../../utils/calcPriceWithSize';
-import CartButton from '../ui/CartButton/CartButton';
+import CartButton from '../../ui/CartButton/CartButton';
 
 function Card ({id, title, imageUrl, size, dough, price, onCardClick}:ICardProps) {
 
@@ -28,10 +28,15 @@ function Card ({id, title, imageUrl, size, dough, price, onCardClick}:ICardProps
         // onChecked = {(size)=>{console.log(size)}}
         />
       </div>
+      <CartButton selectedOptionData={selectedOptionData} title={title} id={id} price={price} imageUrl={imageUrl}/>
+      
+      <span>{calcPriceWithSize(selectedOptionData.size, price) + ' руб'}</span>
+       
+        {/* <button onClick={()=>{addItemToCart()}} >В корзину</button> */}
+       
+    
 
-      <CartButton selectedOptionData={selectedOptionData} title={title} id={id} price={price}/>
-      {/* <button onClick={()=>{addItemToCart()}} >В корзину</button> */}
-      {calcPriceWithSize(selectedOptionData.size, price)}
+     
     </div>
   );
 }

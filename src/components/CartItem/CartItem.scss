@@ -1,0 +1,47 @@
+.item_container{
+    display: flex;
+    
+    margin: 20px 0;
+    .left_side{
+        .title{
+            font-size: xx-large;
+        }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        img{
+            width: 220px;
+        }
+    }
+
+    .center_side{
+        font-size: larger;
+        display: flex;
+        flex-direction: column;
+       width: 400px;
+        
+    }
+
+    .right_side{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+
+        .del_btn{
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            cursor: pointer;
+            color:red;
+            font-size: xx-large;
+        }
+
+        .price{
+            font-size: xx-large;
+        }
+    }
+    
+   
+
+}

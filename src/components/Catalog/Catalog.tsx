@@ -19,7 +19,7 @@ function Catalog({data, loading, onModalOpened}:ICatalogProps) {
         {
           !loading
           ?
-          data.map(({id, title, imageUrl, size, dough, tags, price}:IPizzaData)=>{
+          data.map(({id, title, imageUrl, size, dough, tags, price, popularity}:IPizzaData)=>{
               return <Card 
               onCardClick={()=>{onModalOpened(id)}}
               price={price}
@@ -29,6 +29,7 @@ function Catalog({data, loading, onModalOpened}:ICatalogProps) {
               id={id} 
               title={title} 
               imageUrl={imageUrl}
+              popularity ={popularity}
               />
           })
           :

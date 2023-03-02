@@ -19,7 +19,8 @@ const initialState:pizzaSlice = {
     size: [""],
     dough: [""],
     tags:['all'],
-    price:0
+    price:0,
+    popularity:0
     
 }]
 }
@@ -39,11 +40,11 @@ const initialState:pizzaSlice = {
 //    })
 // }
 
-export const fetchPiazzas = createAsyncThunk("pizzas/getPizzas", ()=>{
-  return axios
-  .get(fetchUrl)
-  .then((res) => res.data)
-})
+// export const fetchPiazzas = createAsyncThunk("pizzas/getPizzas", ()=>{
+//   return axios
+//   .get(fetchUrl)
+//   .then((res) => res.data)
+// })
 
 export const fetchPiazzasByCriteria = createAsyncThunk("pizzas/getPizzasByCriteria",
   async (data:any)=>{
@@ -53,8 +54,12 @@ export const fetchPiazzasByCriteria = createAsyncThunk("pizzas/getPizzasByCriter
   const res = await axios
     .get(
     data.tag ==='all'
-    ?fetchUrl+`?sortBy=${data.sortType}&order=asc`
-    :fetchUrl+'/?tags='+data.tag+`&sortBy=${data.sortType}&order=asc`)
+    // ?fetchUrl+`?sortBy=${data.sortType}&order=asc`
+    ?fetchUrl+`?sortBy=${data.sortType}${data.sortType ==='popularity'?'&order=desc':'&order=asc'}`
+    :fetchUrl+'?tags='+data.tag+`&sortBy=${data.sortType}${data.sortType ==='popularity'?'&order=desc':'&order=asc'}`)
+
+    console.log(res.data);
+    
   return res.data
 })
     
@@ -62,15 +67,15 @@ const pizzaSlice = createSlice ({
     name: 'pizza',
     initialState: initialState,
     extraReducers(builder) {
-      builder.addCase(fetchPiazzas.pending, (state)=>{
-        state.loading = true
-      })
-      builder.addCase(fetchPiazzas.fulfilled, (state, action)=>{
-        state.loading = false
-        state.data = action.payload
-      })
-      builder.addCase(fetchPiazzas.rejected, (state, action)=>{
-      })
+      // builder.addCase(fetchPiazzas.pending, (state)=>{
+      //   state.loading = true
+      // })
+      // builder.addCase(fetchPiazzas.fulfilled, (state, action)=>{
+      //   state.loading = false
+      //   state.data = action.payload
+      // })
+      // builder.addCase(fetchPiazzas.rejected, (state, action)=>{
+      // })
       builder.addCase(fetchPiazzasByCriteria.pending, state =>{
         state.loading = true
       })

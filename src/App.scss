@@ -44,9 +44,10 @@ img{
 .Modal_pizza{
   display: flex;
   justify-content: space-between;
+
   img{
     transition: .5s transform;
-    width: 450px;
+    width: 350px;
     &:hover{
       transform: scale(105%);
     }
@@ -56,18 +57,22 @@ img{
     flex-direction: column;
   }
   .right_side{
-    margin-left: 100px;
+    margin-left: 10px;
     display: flex;
     align-items: flex-end;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     span {
-      max-width:600px;
+      width:600px;
+      overflow-y: auto;
+      height: 400px;
+
 
     }
     .options_background {
       li{
-        padding: 20px 80px;
+        padding: 15px 50px;
       }
   
     }

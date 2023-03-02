@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { IOptionSelectorProps, ISelectedOptionData } from '../../../interfaces';
+import { IOptionSelectorProps, ISelectedOptionData } from '../../interfaces';
 import './OptionSelector.scss'
 
 function OptionSelector ({onOptionSelected,optionData}:IOptionSelectorProps) {
